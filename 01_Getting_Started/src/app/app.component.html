@@ -1,0 +1,18 @@
+<div class="app">
+  <div class="container">
+    <label for="">Server Name</label>
+    <input
+      [(ngModel)]="creationStatus"
+    />
+    <br>
+      <button class="btn btn-primary" [disabled]="!isAllowed" (click)="onAddServer()" >Add Server</button>
+      <p>{{ creationStatus }}</p>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12">
+        <app-server></app-server>
+        <app-server></app-server>
+      </div>
+    </div>
+  </div>
+</div>

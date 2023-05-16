@@ -1,0 +1,46 @@
+
+<<<<<<<< Module 1 >>>>>>>>>> 
+ 
+ - You can split your app into multiple modules and each module is just a typescript class
+ with @NgModule decorator. 
+ - Module can imports another module in imports array.
+ - Module can export using exports array.
+ - Angular have multiple built in module like FormsModule, BroswerModule, RouterModule etc.
+
+ => Create a new component using anuglar cli
+ "ng generate component demo"
+
+ => Data Binding
+ Data binding is communication between typescript code and template/html code.
+  -> Output Data : from typescript code to html
+        1. Use string interplation for that. {{someVariable}}
+        2. Property Binding. [disabled]="!isAllowed"
+  -> React to user events : from html code to typescript.
+        1. Event Binding (event)="expression"
+
+=> Two way data binding
+FormsModule is required for two way data bindings.
+  -> ngModel : [(ngModel)]="inputValue"
+
+=> Directives
+Directives are instructions in the DOM
+  -> Structural Directives
+        1. *ngIf="expression" expression must return a boolean value.
+
+        2. [ngStyle]="{backgroundColor:bgColor}"
+            -> ngStyle is used to add dynamic inline styles.
+            -> ngStyle directive can also be used to apply styles dynamically with ternary operator.
+            [ngStyle]="isError ? {color:'red'}" : {color:'green'}
+
+        3. ngClass: ngClass is used to apply css classes based on some conditions.
+            Ex: <div [ngClass]="{'highlight':isHighlighted}">
+            expression always return true or false;
+        -> [ngStyle] and [ngClass] directive values are key:value pair;
+        -> In case of [ngStyle] value is actual value of css property.
+        -> In case of [ngStyle] value is boolean expression.
+
+        4. *ngFor: <div *ngFor="let item of items">{{item}}</div>
+             To get the index of current iteration use built in keyword 'index'
+             Ex: *ngFor = "let item of items; let i = index"
+
+<<<<<<<< Module 2 : Recipe Sharing App >>>>>>>>>>>>>
