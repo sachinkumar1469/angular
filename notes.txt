@@ -43,4 +43,416 @@ Directives are instructions in the DOM
              To get the index of current iteration use built in keyword 'index'
              Ex: *ngFor = "let item of items; let i = index"
 
+
+
 <<<<<<<< Module 2 : Recipe Sharing App >>>>>>>>>>>>>
+
+
+
+=> Passing Data to child component
+  -> Property Binding :
+      We can pass data to child component using property binding. But that property should
+      be exposed to the outside of component.
+      @Input("name") decorator is used to expose a property.
+
+=> Passing Data to parent component
+  -> Custom Events
+      We can emit our custom event from child component and can listen to those 
+      events in parent component just like regular events.
+      @Output() decorator is used to make event available outside the component.
+
+=> View Encapsulation
+  -> By default angular assign a unique attribute to all the elements of a component.
+  -> That attribute is different for each component elements.
+  -> And using this unique attribute angular achieves style encapsulation.
+  -> Style of each component is only applied to the elements of that component.
+  There are three types of ViewEncapsulation
+  1. default
+  2. None
+  3. Native: Native uses browswer's underlying shadow dom technology.
+
+=> Local Refernces
+ -> Local Refernces can be placed on any HTML elements.
+ -> Local Refernce is used to get access to DOM element.
+ -> You can use them only inside your template code not typescript code.
+ -> We can pass a dom element to a function using local refernce.
+ Ex: (click)="onHandleClick(#nameInput)"
+ -> This onHandleClick function will recieve the dom element with all the elements native properties.
+
+ => Getting access to the Template and DOM
+  -> When using localReference with event binding we can access dom element after the event only.
+  -> But sometime we want to access DOM element before the event.
+  -> Here comes @ViewChild() decorator.
+  Ex1: @ViewChild("nameOfLocalReference",{static:true}) nameInputEl;
+  Ex2: You can also pass the Component Type instead of localReference
+       @ViewChild(RecipeComponent) recipeComponentEl;
+  -> @ViewChild is of type ElementRef
+  -> To get the native dom element from ElementRef use .nativeElement property.
+
+  => ng-content directive
+   -> This directive is used to place the data in child component which is coming directyl
+   from parent component.
+   Ex: 
+      <child-component>
+        <h1>Parent Title</h1>
+      </child-component>
+      
+      - In child component
+      <div>
+        <ng-content></ng-content>
+        <h2>Child Component Title</h2>
+      </div>
+
+=> Component Lifecycle in Angular
+    1. ngOnChanges  : Called after whenever bound input property changes.
+    2. ngOnInit     : Once the component is initialized
+    3. ngDoCheck    : Called during every change detection run.
+    4. ngAfterContentInit   : Called after content is project into the view using ng-content.
+    5. ngAfterContentChecked   : Called every time when the project content is checked.
+    6. ngAfterViewInit   : Called after the component views and child views has been initialized.
+    7. ngAfterViewChecked   : Called every time when the views and child views are checked.
+    8. ngOnDestroy  : Called when the object is about to get destroyed.
+
+=> @ContentChild()
+  -> ContentChild is similar to ViewChild. The only difference is by using ViewChild we can
+  access the DOM element from the view.
+  -> But using ContentChild we can access the dom element which is projected using 
+  ng-content to the child view from the parent component.
+
+
+=> Deep Dive Into Directives
+  1. Attribute Directives.
+  2. Structural Directives.
+
+  Structural Directives : Structural directives are responsible for HTML layout. 
+  They shape or reshape the DOM's structure, typically by adding, removing, and manipulating 
+  the host elements to which they are attached.
+
+=> <ng-container> directive
+  <ng-container> directive is used to host the other directive if there is no element present 
+  to host the directive. It doesn't affect the styles and layout of DOM.
+
+=> * in Structural Directives
+  -> * is shorthand which angular interprets to <ng-template>
+  -> <ng-template> directive is used to create a block or to conditionaly render something.
+  -> We can't have more than one structural diretive on one element.
+
+=> Custom Directives
+  -> @Directive decorator is used to create a custom directive.
+  Ex: 
+    @Directive({
+      selector:"[highlight]"
+    })
+    export class HighlightDirective{}
+  -> We can access the native DOM elements on which diretive sits.
+  Ex:
+    constructor(public elementRef:ElementRef)
+
+=> Renderer
+  -> It's not a good idea to directly change the properties of dom element.
+  -> Because angular can render the templates without the DOM.
+  -> So, Renderer2 is used to manipulate the DOM Element.
+  Ex: 
+    constructor(private elRef:ElementRef,private renderer:Renderer2){}
+    ngOnInit(){
+      this.renderer.setStyles(this.elRef.nativeElement,"background-color","yellow")
+    }
+  -> Service Worker
+
+=> HostListener Decorator
+  -> Using @HostListener("eventName") we can set event listeners on target element on which
+  custom directive is sitting.
+  Ex: 
+    @HostListener("click") onMouseClick(){
+      console.log("Clicked on Host Element")
+    }
+
+=> HostBinding Decorator
+  -> @HostBinding Decorator is used to directly manipulate or bind the hosting element property.
+  -> Just like Renderer2 we can manipulate the property of Host Element using @HostBinding Decorator.
+  Ex:
+    @HostBinding("style.backgroundColor") bgColor: string;
+
+=> Binding properties on custom directives.
+  -> Custom property and custom event binding works in a same way in directives also just like 
+  normal components.
+  Ex:
+    <div highlight [highlightColor]="'blue'" ></div>
+
+=> Custom Structural Directives
+  -> To create custom structural directive we need to @Input set. It's a setter method.
+  -> And we need Template Ref and View Ref.
+  constructor(private templateRef:TemplateRef<any>,private viewContainerRef:ViewContainerRef) { }
+
+  <ng-template appUnless [appUnless]="toDisplay">
+    // Content
+  </ng-template>
+  or
+  <div *appUnless='toDisplay'></div> :: This will be coverted into above code by angular itself.
+
+  => Services
+    -> In Angular, services are classes that are used to organize and share code across components, 
+    directives, and other services. They provide a way to centralize and manage application logic, 
+    data, and functionality that can be reused throughout the application
+
+
+
+<<<<<<< Module 3 : Application Routing >>>>>>>
+
+
+
+=> Routing
+  -> All the routs are defined inside routes array:
+      const routes: Routes = [
+        {path:"",component:RecipesComponent},
+        {path:"shopping",component:ShoppingListsComponent}
+      ];
+
+  -> Adding Links
+    ~ There is a special directive to add links: routerLink="/" or [routerLink]="['/','shopping']"
+  
+  -> Styling Active Route Link
+    ~ routerLinkActive="active", you can place this directive on wrapping element or link itself.
+    ~ [routerLinkActiveOptions]="{exact:true}", this directive will only add active class when path 
+    exactly matches the url path.
+
+=> Navigating Programmatically
+  -> Router:
+    ~ constructor(private router:Router){}
+    ~ router.navigate(["path"])
+
+=> Navigating Programmatically using Relative path
+  -> ActivatedRoute
+    ~ constructor(private router:Router, pirvate rout:ActivatedRoute){}
+    ~ router.navigate(["path"],{
+      relativeTo: this.route
+    })
+
+=> Dynamic parameter in route path
+  -> {path:"user/:id",component:UserComponent}
+  -> To get the id in component ActivatedRoute can be used:
+      ngOnInit():void{
+        console.log(this.route.snapshot.params)
+      }
+
+  -> If we are on a dynamic route and navigates to same route with dynamic parameter change
+  angular will not re-render the component because technically we are on same component/page.
+  -> Observables can be used in such scenarios:
+      noOnInit():void{
+        this.route.params.subscribe((params:Param)=>{
+          console.log(params);
+        })
+      }
+
+=> Passing query params and fragments
+  -> To pass the query params with [routerLink]="[]", you can use bindable property of routerLink
+  named as 'queryParams'.
+  -> [queryParams] is not a directive it's just bindable property of routerLink directive.
+  Ex: 
+    <a [routerLink]="['/','users']" [queryParams]="{id:1}" >RoutePaht</a>
+  -> [fragment] property is used to pass the fragment to the route.
+  Ex:
+    <a [routerLink]="['/','users']" [fragment]="'top'">RoutePath</a>
+
+=> Passing query params and fragment programmatically
+  -> Use Router object
+  Ex:
+    this.router.navigate(["/","users","/",userId],{queryParams:{userId:1},fragment:'top'})
+
+=> Getting query params and fragment in component
+  -> ActivatedRoute can be used to get the queryParams.
+  Ex: 
+    constructor(private route:ActivatedRoute){}
+    ngOnInit():void{
+      console.log(this.route.snapshot.queryParams);
+      console.log(this.route.snapshot.fragment);
+    }
+  -> You can also subscribe to queryParams Observables
+
+=> Child Routes
+  -> A array of children route can be passed to the children:[] property of each route.
+  Ex: 
+    {path:"",component:RecipesComponent,children:[
+      {path:"recipe/:id",component:RecipeDetailComponent}
+    ]},
+
+=> Passing Query Params to Next route
+  -> You can preserve the queryParams when moving from one route to another route.
+  -> queryParamsHandling property is used.
+  Ex:
+    this.router.navigate(["/","edit"],{relativeTo:this.route,queryParamsHandling:'preserve' OR 'merge'})
+
+=> 404 Handling
+ -> Wildcard route can be used to handle 404 errors.
+ Ex:
+  {path:"404",component:PagenotfoundComponent},
+  {path:"**",redirectTo:"/404"}
+
+=> Path Match Property
+ -> pathMatch property is used to tell angular how it interpret or matches the route with url.
+ -> Default value is prefix. In this it just matches the prefix.
+ -> Full: In full it matches the complete url with route.
+ Ex:
+  { path: 'users', component: UsersComponent, pathMatch: 'prefix' }
+
+=> Route Guards (CanActivate)
+ -> canActivate: Create a guard/service class which implements CanActivate interface.
+ -> Override 'canActivate' method which return a promise, observable, or boolean.
+ -> use canActivate property inside route which takes a array of guards.
+
+=> Child Route Guards (CanActivateChild)
+ -> CanActivateChild: Create a guard/service class which implements CanActivateChild interface.
+ -> Override 'canActivateChild' method which return a promise, observable, or boolean.
+ -> use canActivateChild property inside route which takes a array of guards.
+
+=> Passing Static Data to a route
+ -> You can use data property to pass the static data to a route.
+ Ex: {path:"**",redirectTo:"/404",data:{message:"Route Not Found"}}
+
+=> Passing Dynamic Data to a route
+ -> Resolvers are used to pass the dynamic data.
+ -> Resolvers are executed before the route is rendered just like canActivate.
+
+=> Observables
+ -> We can create our custom observable using Observables.create()
+ -> .create() recieve a callback function and that callback function accepts observer.
+ -> On observer we can call three methods next, error and complete.
+ -> While subscribing we can pass three callback function to subscribe callback. 
+ -> First one recieve the data whenever observable emits it, second one is for error handling and
+ third one if when observable is completed.
+
+
+
+<<<<<<< Module 04 Forms Handing (Template Driven) >>>>>>>>>>
+
+
+
+=> Two Approaches
+    1. Template Driven : Angular infer the form object from the DOM.
+    2. Reactive : Form is created programmatically and synchronized with DOM.
+
+=> Template Driven
+  -> Import FormsModule in your project.
+  -> whenever anuglar detects a from tag in angular it create a object for it.
+  -> But it doesn't controll the input tag inside the form tag by default.
+  -> 'ngModel' attribute is used to hand over the control of input field to angular.
+  -> (ngSubmit) event is used to capture the form submit.
+  -> You need to place a local ref on form #myForm="ngForm"
+  -> And pass this local ref to submit handler function.
+      ~ <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+      ~ onSubmit(f:NgForm){
+          console.log("Submitted",f);
+        }
+  -> @ViewChild() is also an alternative to access the form from template.
+
+=> Validation in template Approache
+ -> required : Mark input field is required.
+ -> email : Check for valid email address.
+ -> localref work little different inside the form tag in agnular like: #myForm="ngForm"
+ -> You can use this ref to disable the submit button.
+      Ex: <button [disabled]="!myForm.valid">
+ -> You can also place locla ref on input elements like: #username="ngModel".
+ -> Using the input localref you can conditionaly render the error msg for particular field.
+      Ex: <div class="error-msg" *ngIf="!username.valid && username.touched">
+
+=> Property Binding for ngModel attribute not two way binding.
+ -> [ngModel]="'defaultValue'" Property binding can be used to set the default value.
+ -> Two way binding can also be used if you instantly need value of input field on each keystroke.
+ -> No binding, One way binding and Two way binding all three can be used and ngForm works in a 
+ same way.
+
+=> Grouping in TD Approach
+ -> Grouping can be used to structure the form.
+ -> ngModelGroup='userData'
+
+=> Radio Buttons
+ -> <input type="radio" name="gender" ngModel value={{gender}} required>
+
+=> Setting the value of particular input field
+ -> this.myForm.setValue({
+      username:"demo",
+      email:"",
+      gender:"",
+      secret:"pet"
+    })
+ -> You need to pass the values for all input field while using setValue
+ -> To set the value for individual group or input field use form.patchValue({})
+      form.form.patchValue({
+        userData:{
+          username:"sanyadav",
+          email:"@gmail.com"
+        }
+      })
+
+=> Resetting The TD Form
+ -> this.form.reset(); It wil reset the entre form data.
+
+
+
+<<<<<<< Module 05 Forms Handing (Reactive Approach) >>>>>>>>>>
+
+
+
+=> Reactive Approach
+ -> Reactive Way to create Form object
+      this.signupForm = new FormGroup({
+        username:new FormControl(null),
+        email:new FormControl(null),
+        gender:new FormControl("male"),
+      });
+ -> To connect the above form to template form use [fromGroup] directive
+      <form [formGroup]="signupForm">
+ -> After this you need to connect individual input field to from object property;
+ -> formControlName attribute can be used to connect it.
+      <input type="text" formControlName="username">
+
+=> Validation in reactive Approach
+ -> Second argument in FormControl can be used to set validations.
+      username:new FormControl(null,Validators.required),
+      email:new FormControl(null,[Validators.required,Validators.email]),
+
+=> Error Msg in Reactive Approach
+ -> <span *ngIf="!signupForm.get('username')?.valid && signupForm.get('username')?.touched">
+
+=> FormArray : FormArray is used to represents the FormControls as a array. Just like FormGroup.
+ -> hobbies: new FormArray([])
+ -> onAddHobby(){
+      (this.signupForm.get('hobbies') as FormArray).push(new FormControl(null,Validators.required))
+    }
+ -> To get all the controls of a FormGroup Array:
+      (this.signupForm.get('hobbies') as FormArray).controls
+
+=> Custom Validators
+    forbiddenNames(control:FormControl):{[s:string]:boolean}|null{
+      if(this.forbiddenUsernames.includes(control.value)){
+        return {
+          forbidden:true
+        }
+      };
+      return null;
+    }
+
+=> Creating a custom async validator
+      forbiddenEmails(control:FormControl):Promise<any>|Observable<any>{
+
+        return new Promise<any>((resolve,reject)=>{
+          setTimeout(()=>{
+            if(control.value == 'test@test.com'){
+                resolve({emailForbidden:true});
+            } else {
+                resolve(null);
+            }
+          },1000);
+        });
+      }
+
+=> Reacting to Status or Value Changes
+ -> FormGroup object has two Observables which you can subscribe one for status change and
+ other for value change.
+
+=> Setting and Patching Value
+ -> You can call setValue on entire form and set the values of all the fields.
+ -> Or you can use patchValue.
+ -> .reset() to reset the form data.
+ -> You can pass object to reset() to reset the specific values.
+
