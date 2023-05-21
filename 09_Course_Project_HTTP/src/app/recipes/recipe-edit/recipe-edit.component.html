@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name"> Recipe Name </label>
+            <input type="text" id="name" formControlName="name" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagePath"> Image URL </label>
+            <input type="text" #imagePath formControlName="imagePath" id="imagePath" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img src={{imagePath.value}} style="max-height: 80px;" alt="" class="img-responsive">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description"> Description </label>
+            <textarea type="text" formControlName="description" id="description" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button role="button" type="button" class="btn btn-default" (click)="addIngredientControl()">Add Ingredient</button>
+          <br><br>
+        </div>
+        <div class="col-xs-12" formArrayName="ingredients">
+          <div class="row" *ngFor="let ingredient of getIngredientsControlArray(); let i=index" >
+            <div class="form-group" formGroupName={{i}}>
+              <div class="col-xs-6">
+                <label for={{i}}>Ingredient Name</label>
+                <input type="text" formControlName="name" class="form-control">
+              </div>
+              <div class="col-xs-4">
+                <label for="">Ingredient Amount</label>
+                <input type="number" formControlName="amount" id="" class="form-control">
+              </div>
+              <div class="col-xs-2 ">
+                <label for=""></label>
+                <div class="">
+                  <button class="btn btn-danger align-self-center">X</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <button [disabled]="!recipeForm.valid" class="btn btn-success" [ngStyle]="{marginRight:'0.5em'}">{{isEdit ? 'Update' : 'Save'}}</button>
+          <button class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
