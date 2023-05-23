@@ -1,0 +1,7 @@
+<p-listbox [options]="recipes" (onChange)="onItemSelect($event)">
+  <ng-template let-item pTemplate="item">
+      <div class="list-item">
+          {{ item.name }}
+      </div>
+  </ng-template>
+</p-listbox>

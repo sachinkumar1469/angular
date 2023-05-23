@@ -1,0 +1,38 @@
+<!-- <h3>{{isEdit ? "Edit Recipe ": "New Recipe"}}</h3> -->
+<div class="recipe-edit">
+<form class="new-form" [formGroup]="recipeForm">
+  <div class="flex flex-column gap-2">
+    <label htmlFor="username">Name</label>
+    <input pInputText id="username"  formControlName="name" placeholder="Recipe Name" aria-describedby="username-help"  />
+    <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+  </div>
+  <div class="flex flex-column gap-2">
+    <label htmlFor="username">Image URL</label>
+    <input pInputText id="username" formControlName="imagePath"  placeholder="Image URL" aria-describedby="username-help" />
+    <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+  </div>
+  <div>
+    <label for="">Description</label>
+    <textarea formControlName="description" placeholder="" [rows]="5" id="" cols="30" rows="10"></textarea>
+  </div>
+  <div>
+    <p-button label="Add Ingredient" (onClick)="onAddIngredient()"></p-button>
+  </div>
+  <div formArrayName="ingredients">
+    <div class="ing-group" *ngFor="let ingGroup of getIngredientArrayControls(); let i=index" formGroupName={{i}}>
+      <div>
+        <label for="">Name</label>
+        <input pInputText id="username" formControlName="name"  placeholder="Ingredient Name" aria-describedby="username-help" />
+      </div>
+      <div>
+        <label for="">Amount</label>
+        <input pInputText id="username" formControlName="amount"  placeholder="Quantity" aria-describedby="username-help" />
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; gap: 8px;">
+    <p-button (onClick)="onEdit()" [ngStyle]="{marginRright: '8px'}" type="button" label="Add" styleClass="p-button-success"></p-button>
+    <p-button (onClick)="recipeForm.reset()" type="button" label="Clear" styleClass="p-button-danger"></p-button>
+  </div>
+</form>
+</div>

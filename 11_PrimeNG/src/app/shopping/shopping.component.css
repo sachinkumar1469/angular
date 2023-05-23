@@ -1,0 +1,47 @@
+.shopping{
+  box-sizing: border-box;
+  display: flex;
+  gap: 25px;
+  padding-inline: 6rem;
+  padding-top: 2rem;
+}
+.shopping-left{
+  width: 40%;
+}
+.shopping-right{
+  width: 60%;
+}
+.shopping-left .list-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-block: 0;
+}
+.shopping-left .list-item p{
+  margin-block: 0.3rem;
+}
+
+.shopping-right form{
+  width: 100%;
+}
+.shopping-right form > div:not(:last-child){
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  gap: 8px;
+}
+
+.shopping-right form > div:last-child{
+  display: flex;
+  gap: 10px;
+}
+.p-ripple{
+  padding: 0.7em 1em;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.p-ripple p{
+  margin: 0;
+}

@@ -1,0 +1,15 @@
+.auth{
+  padding: 2rem 6rem;
+  display: flex;
+  justify-content: center;
+}
+.authentication-form{
+  width: 50%;
+}
+.authentication-form > div:not(:last-child){
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1rem;
+  /* border: 1px solid red; */
+}

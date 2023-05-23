@@ -1,0 +1,51 @@
+<div class="header">
+  <div class="header-left">
+    <div class="header-logo">
+      <img src="https://primefaces.org/cdn/primeng/images/primeng-logo-dark.svg">
+    </div>
+  </div>
+  <div class="header-right">
+    <nav>
+      <li routerLinkActive="active">
+          <p-button  routerLink="/recipe" label="Recipes" styleClass="p-button-text"></p-button>
+      </li>
+      <li routerLinkActive="active">
+          <p-button routerLink="/shopping" label="Shopping List" styleClass="p-button-text"></p-button>
+      </li>
+      <li *ngIf="!isAuthenticated" routerLinkActive="active">
+          <p-button routerLink="/auth" label="Authentication" styleClass="p-button-text"></p-button>
+      </li>
+      <li *ngIf="isAuthenticated" routerLinkActive="active">
+          <p-button (click)="showDialog()" label="Logout" styleClass="p-button-text"></p-button>
+          <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{width: '50vw'}">
+              <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <div class=" " style="display: flex; gap: 8px;">
+                <p-button label="Confirm" (onClick)="onModalAction(true)" styleClass="p-button-success"></p-button>
+                <p-button label="Cancel" (onClick)="onModalAction(false)" styleClass="p-button-danger"></p-button>
+              </div>
+          </p-dialog>
+      </li>
+    </nav>
+    <div class="menu">
+      <li>
+        <p-button (click)="toggle()"  icon="pi pi-user" styleClass="p-button-rounded p-button-text p-button-outlined p-button-secondary"></p-button>
+        <p-overlay [(visible)]="overlayVisible"  class="m-overlay" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-4 surface-overlay shadow-2 border-round">
+            <ng-template pTemplate="content"  let-option>
+              <li class="menu-overlay" (click)="onSave()">
+                <a  >Save</a>
+              </li>
+              <li class="menu-overlay" (click)="onFetch()">
+                <a >Fetch</a>
+              </li>
+              <li class="menu-overlay" (click)="onNew()" routerLink="/recipe/new">
+                <a >New Recipe</a>
+              </li>
+            </ng-template>
+        </p-overlay>
+      </li>
+    </div>
+  </div>
+</div>

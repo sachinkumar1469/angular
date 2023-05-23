@@ -1,0 +1,32 @@
+<div class="shopping">
+  <div class="shopping-left">
+    <div class="p-elements">
+      <div class="p-listbox p-component">
+        <div class="p-listbox-list-wrapper">
+          <div *ngFor="let ing of ingredients" class="p-ripple p-element p-listbox-item ng-star-inserted">
+            <p>{{ing.name}}</p>
+            <p>{{ing.amount}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shopping-right">
+    <form #ingredientForm="ngForm">
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Name</label>
+        <input pInputText id="username" ngModel name="name" placeholder="Ingredient Name" aria-describedby="username-help"  />
+        <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Quantity</label>
+        <input pInputText id="username" ngModel name="amount" placeholder="Quantity" aria-describedby="username-help" />
+        <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div>
+        <p-button (onClick)="onAdd()" type="submit" label="Add" styleClass="p-button-success"></p-button>
+        <p-button (onClick)="ingredientForm.reset()" type="button" label="Clear" styleClass="p-button-danger"></p-button>
+      </div>
+    </form>
+  </div>
+</div>

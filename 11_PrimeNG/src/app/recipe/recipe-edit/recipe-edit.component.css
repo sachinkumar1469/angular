@@ -1,0 +1,33 @@
+.new-form{
+  width: 100%;
+  /* border: 1px solid red; */
+}
+.recipe-edit{
+  padding: 1em 2em;
+}
+.new-form > div:not(:last-child){
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.ing-group{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  gap: 15px;
+}
+.ing-group > div{
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ing-group > div:first-child{
+  width: 75%;
+}
+.ing-group > div:last-child{
+  width: 25%;
+}

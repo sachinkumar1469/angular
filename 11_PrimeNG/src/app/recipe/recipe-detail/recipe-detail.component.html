@@ -1,0 +1,20 @@
+<div class="card flex justify-content-center">
+  <p-card header={{selectedRecipe.name}} subheader="Recipe Details" [style]="{ width: '100%' }">
+      <ng-template pTemplate="header">
+          <img alt="Card" style="max-height: 250px;" src={{selectedRecipe.imagePath}} />
+      </ng-template>
+      <p style="margin: 0;">
+          {{selectedRecipe.description}}
+      </p>
+      <ng-template pTemplate="footer">
+        <!-- <p-toast></p-toast>
+          <p-button label="Edit" ></p-button>
+          <p-button label="Add Ingredient" (onClick)="onAddIng()" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button> -->
+          <div class="card flex justify-content-center gap-2" style="gap:8px;">
+            <p-toast></p-toast>
+            <button type="button" style="margin-right: 8px;" pButton pRipple (click)="showSuccess()" label="Add Ingredients" class="p-button-success"></button>
+            <button type="button" pButton pRipple (click)="showInfo()" label="Edit" class="p-button-info"></button>
+          </div>
+      </ng-template>
+  </p-card>
+</div>
