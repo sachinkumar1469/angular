@@ -1,0 +1,27 @@
+.input-form{
+  display: flex;
+  gap: 4rem;
+  width: 100vw;
+  box-sizing: border-box;
+  padding-inline: 6rem;
+  /* height: 100%; */
+}
+.input-form > *{
+  width: 50%;
+}
+
+.myForm{
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+}
+.display{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* align-items: center; */
+  /* border: 1px solid red; */
+}
+.display > *{
+  width: 100%;
+}

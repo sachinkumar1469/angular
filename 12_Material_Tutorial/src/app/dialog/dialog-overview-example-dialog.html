@@ -1,0 +1,60 @@
+<div class="dialog" style="padding: 0.8rem 1rem; box-sizing: border-box;">
+  <h1 mat-dialog-title>Hi {{data.name}}</h1>
+  <div mat-dialog-content>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero alias, eos aliquam error facilis assumenda amet magnam reprehenderit autem officiis vel minus impedit laudantium necessitatibus itaque sunt, aut neque. Voluptatem.</p>
+    <form class="example-form">
+      <label for=""></label>
+      <input style="padding: 0.5em 1em; background-color: transparent; margin-block: 0.8rem; width: calc(100% - 2rem); outline: none;" type="text"
+      name="name" placeholder="Enter Your Name" id="name" #name>
+    </form>
+  </div>
+  <div class="dialog-btn" mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button MAT_DIALOG_DATA="passed data" (click)="onOkClick()" cdkFocusInitial>Ok</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  .example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+  .dialog{
+    width: 400px;
+  }
+  .dialog-btn{
+    display: flex;
+    gap:10px;
+  }
+  .dialog-btn button{
+    padding: 0.7em 1.1em;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .dialog-btn button:last-child{
+    background-color: #ff4081;
+  }
+</style>

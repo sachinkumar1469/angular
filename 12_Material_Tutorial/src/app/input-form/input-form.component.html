@@ -1,0 +1,50 @@
+<div class="input-form">
+  <form action="" class="myForm" #myForm="ngForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput ngModel required name="name" placeholder="Ex. Pizza" value="">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input ngModel name="email" required email matInput placeholder="Email" value="">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input ngModel name="username" required matInput placeholder="Username" value="">
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: space-between;">
+      <mat-form-field class="example-full-width" style="width: 45%;">
+        <mat-label >Password</mat-label>
+        <input  ngModel required name="password" matInput placeholder="Password" value="">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" style="width: 45%;">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput ngModel required name="confirmPassword" placeholder="Password" value="">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput required ngModel name="description" placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+
+    <div >
+      <button mat-raised-button type="submit" [disabled]="!myForm.valid" color="primary" style="margin-right: 10px;">Submit</button>
+      <button mat-raised-button (click)="myForm.reset()" type="button" color="accent">Clear</button>
+    </div>
+  </form>
+  <div class="display">
+    <h3 style="text-align: center;">Form Data</h3>
+    <mat-list role="list">
+        <mat-list-item *ngFor="let item of formValues"  role="listitem">
+          <div style="display: flex; justify-content: space-between;">
+          <span>{{item.key}}</span> <span style="margin-left: auto;">{{item.value}}</span>
+          </div>
+        </mat-list-item>
+    </mat-list>
+  </div>
+</div>
