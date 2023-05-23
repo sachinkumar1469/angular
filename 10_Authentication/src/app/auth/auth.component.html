@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <form #authForm="ngForm" (ngSubmit)="onAuth(authForm)">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input ngModel type="text" name="email" id="email" required email class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input ngModel type="text" name="password" id="password" class="form-control">
+      </div>
+      <div *ngIf="!isLoading">
+        <button   type="submit" class="btn btn-primary">{{isLogin ?"Signin": "Signup"}} </button>
+        &nbsp;
+        <button (click)="switchMode()" type="button" class="btn btn-default">{{isLogin ?"Switch To Signup" :'Switch To Login'}}</button>
+      </div>
+      <div *ngIf="isLoading">
+        <button class="btn btn-default md-col-12">
+          <app-loader></app-loader>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
